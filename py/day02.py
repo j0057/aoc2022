@@ -7,11 +7,22 @@ def outcome(a, b):
         else 3 if a == b \
         else 0
 
+# 0=Lose 1=Draw 2==Win
+def choice(a, o):
+    return (a - 1) % 3 if o == 0 \
+        else a if o == 1 \
+        else (a + 1) % 3
+
 def day02a(grid):
     return sum(outcome(a, b) + b + 1 for (a, b) in parse(grid))
+
+def day02b(grid):
+    return sum(o * 3 + choice(a, o) + 1 for (a, o) in parse(grid))
 
 EX = [['A', 'Y'], ['B', 'X'], ['C', 'Z']]
 
 def test_02_ex1(): assert day02a(EX) == 15
+def test_02_ex2(): assert day02b(EX) == 12
 
 def test_02a(day02_grid): assert day02a(day02_grid) == 15523
+def test_02b(day02_grid): assert day02b(day02_grid) == 15702
