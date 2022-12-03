@@ -1,9 +1,13 @@
 def parse(text):
     return [[int(c) for c in elf.split('\n')] for elf in text.split('\n\n')]
 
+# Find the Elf carrying the most Calories. How many total Calories is that Elf
+# carrying?
 def day01a(text):
     return max(sum(e) for e in parse(text))
 
+# Find the top three Elves carrying the most Calories. How many Calories are
+# those Elves carrying in total?
 def day01b(text):
     return sum(sorted(sum(e) for e in parse(text))[-3:])
 
