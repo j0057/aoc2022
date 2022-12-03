@@ -13,9 +13,13 @@ def choice(a, o):
         else a if o == 1 \
         else (a + 1) % 3
 
+# What would your total score be if everything goes exactly according to your
+# strategy guide?
 def day02a(grid):
     return sum(outcome(a, b) + b + 1 for (a, b) in parse(grid))
 
+# Following the Elf's instructions for the second column, what would your total
+# score be if everything goes exactly according to your strategy guide?
 def day02b(grid):
     return sum(o * 3 + choice(a, o) + 1 for (a, o) in parse(grid))
 
