@@ -19,15 +19,8 @@ def day03a(R):
 def day03b(R):
     return sum(PRIO[reduce(intersect, C).pop()] for C in chunks(map(set, R), 3))
 
-EX = ['vJrwpWtwJgWrhcsFMMfFFhFp',
-      'jqHRNqRjqzjGDLGLrsFMfFZSrLrFZsSL',
-      'PmmdzqPrVvPwwTWBwg',
-      'wMqvLMZHhHMvwLHjbvcjnnSBnvTQFn',
-      'ttgJtRGJQctTZtZT',
-      'CrZsJsPPZsGzwwsLwLmpwMDw']
-
-def test_03_ex1(): assert day03a(EX) == 157
-def test_03_ex2(): assert day03b(EX) == 70
+def test_03_ex1(day03_ex_lines): assert day03a(day03_ex_lines(0)) == 157
+def test_03_ex2(day03_ex_lines): assert day03b(day03_ex_lines(0)) == 70
 
 def test_03a(day03_lines): assert day03a(day03_lines) == 7863
 def test_03b(day03_lines): assert day03b(day03_lines) == 2488
