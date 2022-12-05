@@ -23,10 +23,8 @@ def day02a(grid):
 def day02b(grid):
     return sum(o * 3 + choice(a, o) + 1 for (a, o) in parse(grid))
 
-EX = [['A', 'Y'], ['B', 'X'], ['C', 'Z']]
-
-def test_02_ex1(): assert day02a(EX) == 15
-def test_02_ex2(): assert day02b(EX) == 12
+def test_02_ex1(day02_ex_grid): assert day02a(day02_ex_grid(0)) == 15
+def test_02_ex2(day02_ex_grid): assert day02b(day02_ex_grid(0)) == 12
 
 def test_02a(day02_grid): assert day02a(day02_grid) == 15523
 def test_02b(day02_grid): assert day02b(day02_grid) == 15702
