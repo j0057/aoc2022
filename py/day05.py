@@ -1,13 +1,3 @@
-EX = '    [D]    \n' \
-     '[N] [C]    \n' \
-     '[Z] [M] [P]\n' \
-     ' 1   2   3 \n' \
-     '\n' \
-     'move 1 from 2 to 1\n' \
-     'move 3 from 1 to 3\n' \
-     'move 2 from 2 to 1\n' \
-     'move 1 from 1 to 2\n'
-
 def parse(L):
     empty = L.index('')
     count = int(L[empty-1].split()[-1]) - 1
@@ -37,8 +27,8 @@ def day05b(raw):
         stacks[a]  = stacks[a][:-c]
     return ''.join(s[-1] for s in stacks)
 
-def test_05_ex1(): assert day05a(EX) == 'CMZ'
-def test_05_ex2(): assert day05b(EX) == 'MCD'
+def test_05_ex1(day05_ex_raw): assert day05a(day05_ex_raw(0)) == 'CMZ'
+def test_05_ex2(day05_ex_raw): assert day05b(day05_ex_raw(0)) == 'MCD'
 
 def test_05a(day05_raw): assert day05a(day05_raw) == 'FZCMJCRHZ'
 def test_05b(day05_raw): assert day05b(day05_raw) == 'JSDHQMZGF'
