@@ -26,6 +26,15 @@ def day05a(raw):
         stacks[a]  = stacks[a][:-c]
     return ''.join(s[-1] for s in stacks)
 
+def day05b(raw):
+    stacks, script = parse(raw[:-1].split('\n'))
+    for (c, a, b) in script:
+        stacks[b] += stacks[a][-c:]
+        stacks[a]  = stacks[a][:-c]
+    return ''.join(s[-1] for s in stacks)
+
 def test_05_ex1(): assert day05a(EX) == 'CMZ'
+def test_05_ex2(): assert day05b(EX) == 'MCD'
 
 def test_05a(day05_raw): assert day05a(day05_raw) == 'FZCMJCRHZ'
+def test_05b(day05_raw): assert day05b(day05_raw) == 'JSDHQMZGF'
