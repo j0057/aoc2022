@@ -19,6 +19,8 @@ def parse(L):
               for (_, x, _, a, _, b) in (s.split() for s in L[empty+1:])]
     return (stacks, script)
 
+# After the rearrangement procedure completes, what crate ends up on top of
+# each stack?
 def day05a(raw):
     stacks, script = parse(raw[:-1].split('\n'))
     for (c, a, b) in script:
@@ -26,6 +28,8 @@ def day05a(raw):
         stacks[a]  = stacks[a][:-c]
     return ''.join(s[-1] for s in stacks)
 
+# After the rearrangement procedure completes, what crate ends up on top of
+# each stack?
 def day05b(raw):
     stacks, script = parse(raw[:-1].split('\n'))
     for (c, a, b) in script:
