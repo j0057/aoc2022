@@ -1,3 +1,11 @@
+ilen = lambda items: sum(1 for _ in items)
+
+def stopwhen(pred, items):
+    for x in items:
+        yield x
+        if pred(x):
+            break
+
 def parse(rows):
     return [[int(h) for h in row] for row in rows]
 
@@ -8,28 +16,10 @@ def is_visible(grid, sy, sx):
         or all(grid[sy][x] < grid[sy][sx] for x in range(sx+1, len(grid)))
 
 def scenic_score(grid, sy, sx):
-    count, score = 0, 1
-    for y in range(sy-1, 0-1, -1):
-        count += 1
-        if grid[y][sx] >= grid[sy][sx]:
-            break
-    count, score = 0, score * count
-    for y in range(sy+1, len(grid)):
-        count += 1
-        if grid[y][sx] >= grid[sy][sx]:
-            break
-    count, score = 0, score * count
-    for x in range(sx-1, 0-1, -1):
-        count += 1
-        if grid[sy][x] >= grid[sy][sx]:
-            break
-    count, score = 0, score * count
-    for x in range(sx+1, len(grid)):
-        count += 1
-        if grid[sy][x] >= grid[sy][sx]:
-            break
-    count, score = 0, score * count
-    return score
+    return ilen(stopwhen(lambda y: grid[y][sx] >= grid[sy][sx], range(sy-1, 0-1, -1))) \
+         * ilen(stopwhen(lambda y: grid[y][sx] >= grid[sy][sx], range(sy+1, len(grid)))) \
+         * ilen(stopwhen(lambda x: grid[sy][x] >= grid[sy][sx], range(sx-1, 0-1, -1))) \
+         * ilen(stopwhen(lambda x: grid[sy][x] >= grid[sy][sx], range(sx+1, len(grid))))
 
 def day08a(grid):
     count = sum(is_visible(grid, y, x) for y in range(1, len(grid)-1)
