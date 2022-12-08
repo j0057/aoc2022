@@ -1,4 +1,4 @@
-def parse_output(I):
+def parse_output(I, name=''):
     cur = []
     for line in I:
         match line.split():
@@ -7,7 +7,7 @@ def parse_output(I):
             case ['$', 'cd', '..']:
                 break
             case ['$', 'cd', name]:
-                cur.append(('d', name, *parse_output(I)))
+                cur.append(parse_output(I, name))
             case ['$', 'ls']:
                 pass
             case ['dir', name]:
@@ -16,7 +16,7 @@ def parse_output(I):
                 cur.append(('f', name, int(size)))
             case x:
                 raise Exception(f"WTF: {x!r}")
-    return sum(size for (_, _, size, *_) in cur), sorted(cur)
+    return ('d', name, sum(size for (_, _, size, *_) in cur), sorted(cur))
 
 def find_dirs(tree):
     match tree:
@@ -31,13 +31,13 @@ def find_dirs(tree):
 # Find all of the directories with a total size of at most 100000. What is the
 # sum of the total sizes of those directories?
 def day07a(lines):
-    tree = ('d', '', *parse_output(iter(lines)))
+    tree = parse_output(iter(lines))
     return sum(size for size in find_dirs(tree) if size < 100_000)
 
 # Find the smallest directory that, if deleted, would free up enough space on
 # the filesystem to run the update. What is the total size of that directory?
 def day07b(lines):
-    tree = ('d', '', *parse_output(iter(lines)))
+    tree = parse_output(iter(lines))
     used = next(find_dirs(tree))
     free = 70_000_000 - used
     return min(size for size in find_dirs(tree) if size + free >= 30_000_000)
