@@ -21,11 +21,14 @@ def scenic_score(grid, sy, sx):
          * ilen(stopwhen(lambda x: grid[sy][x] >= grid[sy][sx], range(sx-1, 0-1, -1))) \
          * ilen(stopwhen(lambda x: grid[sy][x] >= grid[sy][sx], range(sx+1, len(grid))))
 
+# Consider your map; how many trees are visible from outside the grid?
 def day08a(grid):
     count = sum(is_visible(grid, y, x) for y in range(1, len(grid)-1)
                                        for x in range(1, len(grid)-1))
     return count + 4 * len(grid) - 4
 
+# Consider each tree on your map. What is the highest scenic score possible for
+# any tree?
 def day08b(grid):
     return max(scenic_score(grid, y, x) for y in range(1,len(grid)-1)
                                         for x in range(1,len(grid)-1))
