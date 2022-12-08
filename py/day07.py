@@ -22,11 +22,9 @@ def find_dirs(tree):
     match tree:
         case ('f', _, _):
             return
-        case ('d', _, size, subdirs):
+        case ('d', _, size, items):
             yield size
-            for subdir in subdirs:
-                for d in find_dirs(subdir):
-                    yield d
+            yield from (subdir for item in items for subdir in find_dirs(item))
 
 # Find all of the directories with a total size of at most 100000. What is the
 # sum of the total sizes of those directories?
