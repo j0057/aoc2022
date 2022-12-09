@@ -9,13 +9,17 @@ def tail_step(M):
       else copysign(1, M.real) + copysign(1, M.imag) * 1j if M.real and M.imag \
       else M * .5
 
+def move_rope(R, d):
+    yield (h := R[0] + d)
+    yield from (h := t + tail_step(h-t) for t in R[1:])
+
 def paths(steps, R):
-    return ((H := H + d, T := T + tail_step(H-T))
+    return (R := [*move_rope(R, d)]
             for (d, m) in steps
             for _ in range(m))
 
 # How many positions does the tail of the rope visit at least once?
-def day09a(lines): return len({T for (_, T) in paths(parse(lines), 0, 0)})
+def day09a(lines): return len({R[-1] for R in paths(parse(lines), [0] * 2)})
 
 def test_09_ex1(day09_ex_lines): assert day09a(day09_ex_lines(3)) == 13
 
