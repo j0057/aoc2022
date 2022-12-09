@@ -20,7 +20,11 @@ def paths(steps, R):
 
 # How many positions does the tail of the rope visit at least once?
 def day09a(lines): return len({R[-1] for R in paths(parse(lines), [0] * 2)})
+def day09b(lines): return len({R[-1] for R in paths(parse(lines), [0] * 10)})
 
 def test_09_ex1(day09_ex_lines): assert day09a(day09_ex_lines(3)) == 13
+def test_09_ex2(day09_ex_lines): assert day09b(day09_ex_lines(3)) == 1
+def test_09_ex3(day09_ex_lines): assert day09b(day09_ex_lines(7)) == 36
 
 def test_09a(day09_lines): assert day09a(day09_lines) == 6391
+def test_09b(day09_lines): assert day09b(day09_lines) == 2593
