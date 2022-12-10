@@ -33,11 +33,12 @@ def day10a(code):
 # Render the image given by your program. What eight capital letters appear on
 # your CRT?
 def day10b(code):
+    boxes = {0: '░░', 1: '██'} # U+2591 LIGHT SHADE and U+2588 FULL BLOCK, both doubled
     chunks = lambda I, n: zip(*[iter(I)]*n)
     exe = run([*parse(code)])
     pix = crt(exe)
     for chunk in chunks(pix, 40):
-        print(''.join('.#'[pixel] for pixel in chunk))
+        print(''.join(boxes[pixel] for pixel in chunk))
 
 def test_10_ex1(day10_ex_lines): assert [*run([*parse(day10_ex_lines(0))])] == [(0, 1), (1, 1), (1, 1), (2, 4), (2, 4), (3, -1)]
 def test_10_ex2(day10_ex_lines): assert day10a(day10_ex_lines(1)) == 13140
