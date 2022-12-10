@@ -17,4 +17,5 @@ My Python solutions to [Advent of Code 2022][aoc2022]. I use [pytest][] with my
 ## Running the tests
 
 Once: `pytest -v`; filter by day: `pytest -vk day01`; continuously:
-`pytest-watch -cw -- -vk day01`.
+`pytest-watch -cw -- -vk day01`; only failed: `ptw -cw -- -v --lf`;
+with output even if successful: `ptw -cw -- -v --lf -rP`.
