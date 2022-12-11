@@ -1,4 +1,4 @@
-from math import prod, lcm
+from math import prod
 
 def parse(L):
     for i in range(0, len(L), 7):
@@ -46,7 +46,7 @@ def day11a(lines):
 def day11b(lines):
     # https://www.reddit.com/r/adventofcode/comments/zifqmh/2022_day_11_solutions/izrkeuq/
     monkeys = [*parse(lines)]
-    factor = lcm(*(m[2] for m in monkeys))
+    factor = prod(m[2] for m in monkeys)
     return prod(sorted(run(monkeys, 10_000, relieve=lambda x: x % factor))[-2:])
 
 def test_11_ex1(day11_ex_lines): assert day11a(day11_ex_lines(0)) == 10605
