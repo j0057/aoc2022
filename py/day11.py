@@ -1,4 +1,4 @@
-from math import prod
+from math import prod, lcm
 
 def parse(L):
     for i in range(0, len(L), 7):
@@ -39,6 +39,18 @@ def day11a(lines):
     monkeys = [*parse(lines)]
     return prod(sorted(run(monkeys, 20, relieve=lambda x: x//3))[-2:])
 
+# Worry levels are no longer divided by three after each item is inspected;
+# you'll need to find another way to keep your worry levels manageable.
+# Starting again from the initial state in your puzzle input, what is the level
+# of monkey business after 10000 rounds?
+def day11b(lines):
+    # https://www.reddit.com/r/adventofcode/comments/zifqmh/2022_day_11_solutions/izrkeuq/
+    monkeys = [*parse(lines)]
+    factor = lcm(*(m[2] for m in monkeys))
+    return prod(sorted(run(monkeys, 10_000, relieve=lambda x: x % factor))[-2:])
+
 def test_11_ex1(day11_ex_lines): assert day11a(day11_ex_lines(0)) == 10605
+def test_11_ex2(day11_ex_lines): assert day11b(day11_ex_lines(0)) == 2713310158
 
 def test_11a(day11_lines): assert day11a(day11_lines) == 182293
+def test_11b(day11_lines): assert day11b(day11_lines) == 54832778815
