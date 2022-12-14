@@ -22,7 +22,7 @@ def build(paths):
                       for (x, y) in genpath(*a, *b)}
 
 def drop_sand(grid, maxy):
-    while (p := 500):
+    while (p := 500) and not grid[p]:
         while p.imag < maxy:
             match (grid[p-1+1j], grid[p+1j], grid[p+1+1j]):
                 case (_,  0,  _): p +=  0+1j
@@ -43,6 +43,17 @@ def day14a(L):
     drop_sand(grid, maxy)
     return sum(v == 2 for v in grid.values())
 
+# Using your scan, simulate the falling sand until the source of the sand
+# becomes blocked. How many units of sand come to rest?
+def day14b(L):
+    grid = defaultdict(int, build(parse(L)))
+    maxy = int(max(c.imag for c in grid))
+    grid |= {x+(maxy+2)*1j: 1 for x in range(500-maxy-3, 500+maxy+3)}
+    drop_sand(grid, maxy+3)
+    return sum(v == 2 for v in grid.values())
+
 def test_14_ex1(day14_ex_lines): assert day14a(day14_ex_lines(0)) == 24
+def test_14_ex2(day14_ex_lines): assert day14b(day14_ex_lines(0)) == 93
 
 def test_14a(day14_lines): assert day14a(day14_lines) == 757
+def test_14b(day14_lines): assert day14b(day14_lines) == 24943
