@@ -8,7 +8,7 @@ def distances(S):
     return {(sx, sy): abs(bx-sx) + abs(by-sy) for ((sx, sy), (bx, by)) in S.items()}
 
 def merge(I):
-    return reduce(lambda R, i: (R[:-1] + [(R[-1][0], max(R[-1][1], i[1]))]) if i[0] <= R[-1][1] else R + [i], I[1:], [I[0]])
+    return reduce(lambda R, i: (R[:-1] + [(R[-1][0], max(R[-1][1], i[1]))]) if i[0]-1 <= R[-1][1] else R + [i], I[1:], [I[0]])
 
 def exclude_y(M, y):
     return merge(sorted(i for ((sx, sy), m) in M.items()
